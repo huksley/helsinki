@@ -1,0 +1,55 @@
+<html>
+<head>
+  
+  <title>Google Maps Multiple Markers</title>
+  <script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
+</head>
+<body>
+	<div>
+	<h1>2017-2018 Schools with primary preparatory groups</h1>
+</div>
+  <div id="map" style="height: 80%; width: 100%;">
+</div>
+<script type="text/javascript">
+    var locations = [
+      ['Katajanokan aa', 60.1679557,24.9701198, "https://www.hel.fi/peruskoulut/fi/koulut/katajanokan-ala-aste/katajanokan-ala-aste"],
+      ['Kallion aa', 60.1829873, 24.9511391, "https://www.hel.fi/peruskoulut/fi/koulut/kallion-ala-aste"],
+	  ['Pikku Huopalahden aa', 60.2021293,24.8953395, "https://www.hel.fi/peruskoulut/fi/koulut/pikku-huopalahden-ala-aste"],
+	  ['Malminkartanon aa ', 60.2461428,24.8599921, "https://www.hel.fi/peruskoulut/fi/koulut/malminkartanon-ala-aste"],
+	  ['Pihlajiston aa ', 60.230206,25.00637, "https://www.hel.fi/peruskoulut/fi/koulut/pihlajiston-ala-aste"],
+	  ['Maatullin aa ', 60.2747555,25.0289115, "https://www.hel.fi/peruskoulut/fi/koulut/maatullin-ala-aste"],
+	  ['Vesalan pk', 60.2425803,25.0793839, "https://www.hel.fi/peruskoulut/fi/koulut/vesalan-peruskoulu"],
+	  ['Myllypuron pk', 60.2209432,25.0692852, "https://www.hel.fi/peruskoulut/fi/koulut/myllypuron-peruskoulu"],
+	  ['Kontulan aa', 60.2318884,25.0913285, "https://www.hel.fi/peruskoulut/fi/koulut/kontulan-ala-aste"],
+	  ['Porolahden pk', 60.1955387,25.05737734, "https://www.hel.fi/peruskoulut/fi/koulut/porolahden-peruskoulu"],
+	  ['Mellunmaen aa', 60.2329439,25.1224317, "https://www.hel.fi/peruskoulut/fi/koulut/mellunmaen-ala-aste"],
+	  ['Puistopolun pk', 60.2115931,25.1426532, "https://www.hel.fi/peruskoulut/fi/koulut/puistopolun-peruskoulu"],
+	  ['Merilahden pk ', 60.2030334,25.1190444, "https://www.hel.fi/peruskoulut/fi/koulut/merilahden-peruskoulu"],
+    ];
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 12,
+      center: new google.maps.LatLng(60.1955387,25.05737734),
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+
+    var infowindow = new google.maps.InfoWindow();
+
+    var marker, i;
+
+    for (i = 0; i < locations.length; i++) { 
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+        map: map
+      });
+
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+          infowindow.setContent(locations[i][0] + "<br><li><a href='" + locations[i][3] + "'>more info</a>");
+          infowindow.open(map, marker);
+        }
+      })(marker, i));
+    }
+  </script>
+</body>
+</html>
